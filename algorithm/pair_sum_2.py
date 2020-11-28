@@ -10,7 +10,6 @@ def quicksort(arr):
     pivot = arr[randint(0, len(arr) - 1)]
 
     for item in arr:
-
         if item < pivot:
             low.append(item)
         elif item == pivot:

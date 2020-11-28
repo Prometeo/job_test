@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  local_video_project_postgres_data: {}
+  local_video_project_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: video_project_local_django_videos
+    container_name: django_videos
+    depends_on:
+      - postgres
+    volumes:
+      - ./project:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: video_project_project_postgres
+    container_name: local_video_project_postgres
+    volumes:
+      - local_video_project_postgres_data:/var/lib/postgresql/data:Z
+      - local_video_project_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres
