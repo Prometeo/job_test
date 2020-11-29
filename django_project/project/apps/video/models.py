@@ -26,7 +26,7 @@ class Registration(models.Model):
     course = models.ForeignKey(Course, null=False, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'regsitration'
+        db_table = 'regsitrations'
 
 
 class VideoProgress(models.Model):
